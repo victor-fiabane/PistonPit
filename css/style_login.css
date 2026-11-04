@@ -1,0 +1,290 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    min-height: 100vh;    
+    max-width: 100vw;
+    overflow-x: hidden;
+    flex-direction: column; 
+    background-color: #232323;
+}
+
+
+/*
+
+Header
+
+*/
+.main-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    z-index: 999;
+}
+
+.main-header nav a {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.main-header nav a:hover {
+    color: #ff0000; 
+}
+
+/* Link Login Funcionario */
+
+#func {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#func a {
+    font-family: "Poppins", sans-serif;
+    color: #ffffff; 
+    text-decoration: none; 
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+#func a:hover {
+    color: #ff0000;
+    text-decoration: underline;
+}
+
+/*  Desktop CSS */
+
+
+#mainMobile{
+    display: none;
+    height: 100vh;
+    width: 100vw;
+}
+#mainPc{
+    height: 100vh;
+    width: 100vw;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+#formMainPc{
+    height: 100vh;
+    width: 100vw;
+}
+
+#mainText p{
+    font-size: 50px;
+    position: relative;
+
+}
+#mainText{
+    left: 36.5%;
+    width: 500px;
+    height: 100px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*
+
+Title Section⠀⠀⠀⠀⠀⠀⠀
+
+*/
+#warning{
+    color: yellow;
+    font-family: "Poppins", sans-serif;
+    font-size: 150%;
+}
+#title{
+    width: 50%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: none;
+}
+.titleText{
+    position: relative;
+    font-family: "Poppins", sans-serif;
+    font-size: 4vw;
+    color: white;
+}
+#subtitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2vw;
+}
+
+/*
+
+-----===== Inputs section ======------
+
+*/
+#inputs{
+    width: 50%;
+    height: auto;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    float: none;
+    
+}
+#inputImg{
+    margin-top: 30px;
+    width: 40%;
+}
+#inputsSubdiv {
+    width: 100%;
+    max-width: 650px;
+    height: 100%; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.textarea{
+    font-family: "Poppins", sans-serif;
+    padding-top: 10%;
+    font-size: 30px;
+    width: 80%;
+    font-weight: bold;
+    color: rgb(255, 255, 255)
+}
+#textarea1{
+    padding-top: 20px;
+}
+.inputText{
+    width: 100%;
+    height: 40%;
+    border-radius: 10px;
+    font-size: 60%;
+}
+#submitDiv{
+    margin-top: 50px;
+    height: 100px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#subButton{
+    height: 50%;
+    width: 70%;
+    font-size: 100%;
+    border-radius: 5px;
+}
+#subButton:hover{
+    background-color: #ffffff;
+    color: #ff0000; 
+    border-color: #000000; ;
+}
+
+/*  
+
+Mobile CSS 
+
+*/
+
+@media only screen and (max-width: 768px){
+    #mainPc{
+        display: none;
+    }
+    #formMainPc{
+        display: none;
+    }
+    /*#mainText p{
+        display: none;
+    
+    }
+    */
+    #mainText{
+        display: none;
+    }
+    #mainMobile{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        flex-direction: column;
+        padding-top: 120px;
+        box-sizing: border-box;
+    }
+    #warning{
+        font-size: 22px; 
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 0 15px;
+    }
+    #title{
+        width: 100%;
+        height: auto;
+        float: none;
+        margin-bottom: 30px;
+    }
+    #mainMobile #mainTitle {
+        font-size: 35px;
+    }
+    #mainMobile #subtitle {
+        font-size: 18px;
+        margin-top: 5px; 
+    }
+    .main-header nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; 
+    }
+    .main-header nav a {
+        margin: 0;
+        text-align: center;
+    }
+    #submitDiv{
+        margin-top: 50px;
+        height: 10vh;
+        width: 25vw;
+        display: flex;
+        font-size: medium;
+        justify-content: center;
+        align-items: center;
+    }
+    #inputs{
+        width: 100%;
+        height: auto; 
+        float: none; 
+    }
+    #inputsSubdiv{
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .textarea input{
+        font-family: "Poppins", sans-serif;
+        height: 40px;
+        font-size: 80%;
+    }
+    #subButton{
+        font-family: "Poppins", sans-serif;
+        height: 40px;
+        font-size: 100%;
+    }
+}

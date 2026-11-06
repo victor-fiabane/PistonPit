@@ -9,4 +9,13 @@ class Crud
     {
         $this->conn = $db;
     }
+
+public function read()
+{
+    $query = "SELECT * FROM pistonpit.cliente";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt;
+}
+    
 }

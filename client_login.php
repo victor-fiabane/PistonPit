@@ -71,20 +71,26 @@
                             $found = false;
                             // Use um loop para iterar sobre os resultados obtidos com o PDO
                             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                                $login = $row['name'];
-                                $senha = $row['password'];
+                                $login = $row['cli_email'];
+                                $senha = $row['cli_senha'];
+                                $ativo = $row['cli_ativo'];
                                     
-                                if ($login == $user && $senha == $pass) {
-                                    if (session_status() !== PHP_SESSION_ACTIVE) {
-                                        session_start();
+                                if ($ativo == 1) { 
+                                        if (session_status() !== PHP_SESSION_ACTIVE) {
+                                            session_start();
+                                        }
+                                        $_SESSION['id'] = $row['id_cli'];
+                                        $_SESSION['username'] = $login;
+                                        $found = true;
+                                        echo '<script type="text/javascript"> window.location.href="mainMenu.php"; </script>';
+                                        echo "found";
+                                        break;
+                                    } else {
+                                        echo '<script>alert("Sua conta está inativa.");</script>';
+                                        $found = true;
+                                        break;
                                     }
-                                    $_SESSION['username'] = $login;
-                                    $found = true;
-                                    echo '<script type="text/javascript"> window.location.href="mainMenu.php"; </script>';
-                                    echo "found";
-                                    break;
                                 }
-                            }
                             if (!$found) {
                                 echo '<script>alert("E-mail ou senha incorreto, tente novamente.");</script>';
                             } else {
@@ -148,23 +154,26 @@
                             $found = false;
                             // Use um loop para iterar sobre os resultados obtidos com o PDO
                             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                                $login = $row['name'];
-                                $senha = $row['password'];
-                                $admin = $row['isAdmin'];
-                                $id = $row['userId'];
-                                if ($login == $user && $senha == $pass) {
-                                    session_start();
-                                    $_SESSION["id"] = $id;
-                                    $_SESSION["login"] = $login;
-                                    $_SESSION["admin"] = $admin;
-
-                                    $found = true;
-                                    echo '<script type="text/javascript"> window.location.href="mainMenu.php"; </script>';
-
-                                    echo "found";
-                                    break;
+                                $login = $row['cli_email'];
+                                $senha = $row['cli_senha'];
+                                $ativo = $row['cli_ativo'];
+                                    
+                                if ($ativo == 1) { 
+                                        if (session_status() !== PHP_SESSION_ACTIVE) {
+                                            session_start();
+                                        }
+                                        $_SESSION['id'] = $row['id_cli'];
+                                        $_SESSION['username'] = $login;
+                                        $found = true;
+                                        echo '<script type="text/javascript"> window.location.href="mainMenu.php"; </script>';
+                                        echo "found";
+                                        break;
+                                    } else {
+                                        echo '<script>alert("Sua conta está inativa.");</script>';
+                                        $found = true;
+                                        break;
+                                    }
                                 }
-                            }
                             if (!$found) {
                                 echo '<script>alert("E-mail ou senha incorreto, tente novamente.");</script>';
                             } else {

@@ -1,13 +1,10 @@
 <?php
-
-    class DataBase{
-        
+    class DataBase{   
         private $host = "localhost";
         private $db_name = "pistonpitdb";
         private $username = "root";
         private $password = "";
         public $conn;
-
         public function getConnection(){
             try{
                 $this->conn = new PDO("mysql:host=" .$this->host .";dbname = ".$this->db_name,

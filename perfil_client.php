@@ -9,15 +9,10 @@
 	<title>Perfil</title>
 </head>
 <?php
-
 include_once("./db/config.php");
 include_once("./db/setDb.php");
 include_once("./crud.php");
-
-if (!isset($_SESSION["id"])) {
-	header("Location: login.php");
-	exit();
-}
+require_once 'auth.php';
 ?>
 
 <body>

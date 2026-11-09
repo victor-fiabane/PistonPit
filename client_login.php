@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
-<!--
 <?php
     include_once("./db/config.php");
     include_once("./db/setDb.php");
@@ -16,27 +15,20 @@
         session_start();
     }
 ?>
--->
-
 <header class="main-header">
         <nav>
             <a href="conheca.php">Conheça o kartódromo</a>
             <a href="pistas.php">Nossas pistas</a>
         </nav>
 </header>
-
-
-<!--              Desktop HTML                 -->
     <form id="formMainPc" method="post">
         <div id="mainPc">
-            <!-- title div -->
             <div id="title">
                 <nobr>
                     <h1 class="titleText" id="mainTitle">Piston Pit</h1> </br>
                     <h2 class="titleText" id="subtitle">Kartodromo</h2>
                 </nobr>
             </div>
-            <!--input div -->
             <div id="inputs">
                 <div id="inputsSubdiv">
                     <div class="textarea" id="textarea1">
@@ -55,26 +47,20 @@
                 </div>
                 </div>
             </div>
-            <?php # php openning
-            if (isset($_POST['subButton'])){           #
-                if($_POST['loginText'] != ""){         # Checking if the textboxes are filled
-                    if($_POST['passwordText'] != ""){  #
-                        #write the code here
-                        
+            <?php
+            if (isset($_POST['subButton'])){          
+                if($_POST['loginText'] != ""){        
+                    if($_POST['passwordText'] != ""){ 
                         $crud = new Crud($db);
-                        $result = $crud->read();
-
+                        $result = $crud->readCli();
                         $user = $_POST['loginText'];
                         $pass = $_POST['passwordText'];
-
                         if ($result) {
                             $found = false;
-                            // Use um loop para iterar sobre os resultados obtidos com o PDO
                             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                                 $login = $row['cli_email'];
                                 $senha = $row['cli_senha'];
                                 $ativo = $row['cli_ativo'];
-                                    
                                 if ($ativo == 1) { 
                                         if (session_status() !== PHP_SESSION_ACTIVE) {
                                             session_start();
@@ -94,24 +80,15 @@
                             if (!$found) {
                                 echo '<script>alert("E-mail ou senha incorreto, tente novamente.");</script>';
                             } else {
-                                // Trate o caso em que a consulta não retornou resultados
                                 echo "Cliente não cadastrado.";
                             }
                         }
                     }
-
-
-                }                                                             # Popping a message if 
-            }                                                                #
-            
-
-            ?> <!-- php closing -->
-
-
+                }   
+            }                                 
+            ?>
         </div>
     </form>
-
-<!---              Mobile HTML-                -->
 <form id="mainMobile" method="post">
     <div id="title">
                 <nobr>
@@ -119,7 +96,6 @@
                     <h2 class="titleText" id="subtitle">Kartodromo</h2>
                 </nobr>
             </div>
-            <!--input div -->
             <div id="inputs">
                 <div id="inputsSubdiv">
                     <div class="textarea" id="textarea1">
@@ -128,7 +104,7 @@
                     </div>
                     <div class="textarea">
                         <p id="pass">Senha</p>
-                        <input type="text" name="passwordText" id="password" class="inputText" placeholder="Insira sua Senha" required>
+                        <input type="password" name="passwordText" id="password" class="inputText" placeholder="Insira sua Senha" required>
                     </div>
                     <div id="submitDiv">
                         <input type="submit" id="subButton" name="subButton">
@@ -138,26 +114,20 @@
         <div id="func">
                     <a href="emplo_login.php">Acesso Restrito</a>
         </div>
-        <?php # php openning
-            if (isset($_POST['subButton'])) {           #
-                if ($_POST['loginText'] != "") {         # Checking if the textboxes are filled
-                    if ($_POST['passwordText'] != "") {  #
-                        #write the code here
-
+        <?php
+            if (isset($_POST['subButton'])) {          
+                if ($_POST['loginText'] != "") {        
+                    if ($_POST['passwordText'] != "") { 
                         $crud = new Crud($db);
-                        $result = $crud->read();
-
+                        $result = $crud->readCli();
                         $user = $_POST['loginText'];
                         $pass = $_POST['passwordText'];
-
                         if ($result) {
                             $found = false;
-                            // Use um loop para iterar sobre os resultados obtidos com o PDO
                             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                                 $login = $row['cli_email'];
                                 $senha = $row['cli_senha'];
                                 $ativo = $row['cli_ativo'];
-                                    
                                 if ($ativo == 1) { 
                                         if (session_status() !== PHP_SESSION_ACTIVE) {
                                             session_start();
@@ -177,18 +147,13 @@
                             if (!$found) {
                                 echo '<script>alert("E-mail ou senha incorreto, tente novamente.");</script>';
                             } else {
-                                // Trate o caso em que a consulta não retornou resultados
                                 echo "Cliente não cadastrado.";
                             }
                         }
                     }
-                }                                                             # Popping a message if 
-            }                                                                 #
-
-
-            ?> <!-- php closing -->
-
-
+                }                                                          
+            }                                                   
+            ?>
         </div>
     </form>
 </body>

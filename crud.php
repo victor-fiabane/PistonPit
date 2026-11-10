@@ -24,7 +24,7 @@ public function readEmplo()
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':email', $email);
     $stmt->execute();
-    return $stmt;
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 }

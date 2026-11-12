@@ -1,0 +1,279 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    max-width: 100vw;
+    overflow-x: hidden;
+    flex-direction: column;
+    background-color: #232323;
+}
+ 
+#containerPc {
+    width: 100%;
+    min-height: 100vh;
+}
+ 
+/*
+ 
+Header
+[AJUSTE] Os links estavam com a cor padrão do navegador, porque só existia a regra
+do text-decoration. Agora seguem o mesmo padrão do style_MainMenu.css:
+branco, negrito, 18px e vermelho ao passar o mouse.
+ 
+*/
+ 
+header {
+    width: 100%;
+    padding: 20px 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+}
+ 
+header nav {
+    display: flex;
+    justify-content: center;
+}
+ 
+header nav a {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+ 
+header nav a:hover {
+    color: #ff0000;
+}
+ 
+ 
+/*
+ 
+Conteudo
+ 
+*/
+ 
+#content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+    box-sizing: border-box;
+}
+ 
+#container-perfil {
+    width: 100%;
+    max-width: 1000px;
+}
+ 
+#container-titulo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+ 
+#container-titulo h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 40px;
+    color: #ffffff;
+}
+ 
+#container-titulo p {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    color: #c9c9c9;
+    margin-top: 10px;
+}
+ 
+#container-dados,
+#container-form,
+#container-historico {
+    background-color: #2e2e2e;
+    border: 1px solid #3d3d3d;
+    border-radius: 12px;
+    padding: 25px 30px;
+    margin-bottom: 25px;
+    transition: 0.3s;
+}
+ 
+/* [AJUSTE] Mesma borda vermelha no hover dos cartões do menu */
+#container-dados:hover,
+#container-form:hover,
+#container-historico:hover {
+    border-color: #ff0000;
+}
+ 
+#container-dados p,
+#container-historico p {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 8px 0;
+    line-height: 1.5;
+}
+ 
+#container-historico h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+ 
+/*
+ 
+Formulario de edicao dos dados
+ 
+*/
+ 
+#container-form p {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 10px 0 8px 0;
+}
+ 
+#container-form .inputText {
+    width: 100%;
+    height: 38px;
+    border-radius: 10px;
+    border: none;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+}
+ 
+/* Botão de salvar: aqui continua sendo botão de verdade, com fundo branco */
+#container-form .botoes {
+    margin-top: 20px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    color: #232323;
+    background-color: #ffffff;
+    padding: 10px 25px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+ 
+#container-form .botoes:hover {
+    background-color: #ff0000;
+    color: #ffffff;
+}
+ 
+#container-form .botoes p {
+    font-family: "Poppins", sans-serif;
+    padding: 0;
+    color: inherit;
+}
+ 
+/*
+ 
+Mensagens de retorno
+ 
+*/
+ 
+.mensagem {
+    margin-bottom: 20px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    text-align: center;
+    color: #ffffff;
+}
+.mensagem.erro {
+    background-color: rgba(255, 0, 0, 0.15);
+    border: 1px solid #ff0000;
+}
+.mensagem.sucesso {
+    background-color: rgba(0, 200, 83, 0.15);
+    border: 1px solid #00c853;
+}
+ 
+/*
+ 
+Tabela de listagem
+ 
+*/
+ 
+#container-tabela {
+    width: 100%;
+    overflow-x: auto;
+    background-color: #2e2e2e;
+    border: 1px solid #3d3d3d;
+    border-radius: 12px;
+}
+ 
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+}
+ 
+.tabela th {
+    text-align: left;
+    font-size: 15px;
+    padding: 15px;
+    background-color: #1c1c1c;
+    white-space: nowrap;
+}
+ 
+.tabela td {
+    font-size: 15px;
+    padding: 15px;
+    border-top: 1px solid #3d3d3d;
+    white-space: nowrap;
+}
+ 
+.tabela tr:hover td {
+    background-color: #373737;
+}
+ 
+/*
+ 
+Mobile CSS
+ 
+*/
+ 
+@media only screen and (max-width: 768px) {
+    header {
+        padding: 15px 0;
+    }
+ 
+    header nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+ 
+    header nav a {
+        margin: 0;
+        text-align: center;
+        font-size: 16px;
+    }
+ 
+    #content {
+        padding: 30px 15px;
+    }
+ 
+    #container-titulo h1 {
+        font-size: 30px;
+    }
+ 
+    #container-dados,
+    #container-form,
+    #container-historico {
+        padding: 20px;
+    }
+}

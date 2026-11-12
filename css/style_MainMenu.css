@@ -12,13 +12,6 @@ body {
     flex-direction: column;  
     background-color: #232323;
 }
-
-/*
-
-Header
-
-*/
-
 .main-header {
     position: absolute;
     top: 0;
@@ -40,7 +33,12 @@ Header
     font-weight: bold;
     transition: color 0.3s;
 }
-
+.titleText{
+    font-family: "Poppins", sans-serif;
+    font-size: 35px;
+    color: #ffffff;
+    align-items: center;
+}
 .main-header nav a:hover {
     color: #ff0000; 
 }

@@ -16,7 +16,7 @@
 <header class="main-header">
         <nav>
             <a href="lista_client.php">Clientes</a>
-            <a href="financa.php">Financeiro</a>
+            <a href="financeiro.php">Financeiro</a>
             <?php if ($_SESSION['func_perfil'] == 'ADMIN') { ?>
                 <a href="emplo_cadastro.php">Funcionários</a>
             <?php } ?>

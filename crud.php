@@ -3,7 +3,7 @@ session_start();
 class Crud
 {
     private $conn;
-    private $db_name = "pistonpitdb";
+    private $db_name = "pistonpit";
     private $id;
     public function __construct($db)
     {
@@ -55,6 +55,16 @@ public function existsCli($email, $cpf)
     return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
 }
 
+public function existsCliEmail($email, $id)
+{
+    $query = "SELECT id_cli FROM pistonpit.cliente WHERE cli_email = :email AND id_cli <> :id LIMIT 1";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+}
+
 public function createCli($nome, $cpf, $email, $telefone, $senha)
 {
     $query = "INSERT INTO pistonpit.cliente (cli_nome, cli_cpf, cli_email, cli_telefone, cli_senha, cli_ativo, cli_termo_data)
@@ -74,6 +84,28 @@ public function updateCli($id, $nome, $telefone)
     $query = "UPDATE pistonpit.cliente SET cli_nome = :nome, cli_telefone = :telefone WHERE id_cli = :id";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':telefone', $telefone);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+public function updateCliAdmin($id, $email, $telefone, $ativo)
+{
+    $query = "UPDATE pistonpit.cliente SET cli_email = :email, cli_telefone = :telefone, cli_ativo = :ativo WHERE id_cli = :id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':telefone', $telefone);
+    $stmt->bindParam(':ativo', $ativo, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+public function updateCliPerfil($id, $nome, $email, $telefone)
+{
+    $query = "UPDATE pistonpit.cliente SET cli_nome = :nome, cli_email = :email, cli_telefone = :telefone WHERE id_cli = :id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':email', $email);
     $stmt->bindParam(':telefone', $telefone);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     return $stmt->execute();
@@ -107,7 +139,7 @@ public function existsEmplo($email)
 
 public function createEmplo($nome, $email, $senha, $perfil)
 {
-    $query = "INSERT INTO funcionario (func_nome, func_email, func_senha, func_perfil, func_ativo)
+    $query = "INSERT INTO pistonpit.funcionario (func_nome, func_email, func_senha, func_perfil, func_ativo)
               VALUES (:nome, :email, :senha, :perfil, 1)";
     $hash = password_hash($senha, PASSWORD_DEFAULT);
     $stmt = $this->conn->prepare($query);

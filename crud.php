@@ -111,6 +111,28 @@ public function updateCliPerfil($id, $nome, $email, $telefone)
     return $stmt->execute();
 }
 
+public function existsEmploEmail($email, $id)
+{
+    $query = "SELECT id_func FROM pistonpit.funcionario WHERE func_email = :email AND id_func <> :id LIMIT 1";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+}
+
+public function updateEmploAdmin($id, $nome, $email, $perfil, $ativo)
+{
+    $query = "UPDATE pistonpit.funcionario SET func_nome = :nome, func_email = :email, func_perfil = :perfil, func_ativo = :ativo WHERE id_func = :id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':perfil', $perfil);
+    $stmt->bindParam(':ativo', $ativo, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
 public function readEmploId($id)
 {
     $query = "SELECT * FROM pistonpit.funcionario WHERE id_func = :id LIMIT 1";

@@ -18,7 +18,8 @@
             <a href="lista_client.php">Clientes</a>
             <a href="financeiro.php">Financeiro</a>
             <?php if ($_SESSION['func_perfil'] == 'ADMIN') { ?>
-                <a href="emplo_cadastro.php">Funcionários</a>
+                <a href="emplo_cadastro.php">Cadastro de Funcionários</a>
+                <a href="lista_emplo.php">Listagem de Funcionários</a>
             <?php } ?>
             <a href="perfil_emplo.php">Perfil</a>
             <a href="logout.php">Sair</a>

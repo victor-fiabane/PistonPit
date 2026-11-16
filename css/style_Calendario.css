@@ -1,0 +1,396 @@
+#calendario {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+#calendario * {
+    box-sizing: border-box;
+}
+#calendario .mensagem {
+    padding: 12px 15px;
+    margin: 0 0 15px 0;
+    border-radius: 8px;
+    font-size: 15px;
+    text-align: center;
+}
+#calendario .mensagem.erro {
+    background-color: rgba(255, 0, 0, 0.15);
+    border: 1px solid #ff0000;
+}
+#calendario .mensagem.sucesso {
+    background-color: rgba(0, 200, 83, 0.15);
+    border: 1px solid #00c853;
+}
+.calTopo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+.calMes {
+    font-size: 22px;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+.calNav {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 22px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #2e2e2e;
+    border: 1px solid #3d3d3d;
+    border-radius: 10px;
+}
+.calNav:hover {
+    background-color: #373737;
+}
+.calAjuda {
+    font-size: 14px;
+    color: #c9c9c9;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+.calSemana,
+.calGrade {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+.calSemana {
+    margin-bottom: 8px;
+}
+.calSemana span {
+    text-align: center;
+    font-size: 13px;
+    color: #c9c9c9;
+    padding: 5px 0;
+}
+.calDia {
+    min-height: 92px;
+    padding: 8px;
+    background-color: #2e2e2e;
+    border: 1px solid #3d3d3d;
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.calDia:hover {
+    background-color: #373737;
+}
+.calDia.vazio {
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: default;
+    min-height: 0;
+}
+.calDia.passado {
+    opacity: 0.55;
+}
+.calDia.hoje {
+    border: 2px solid #00c853;
+}
+.calDia.bloqueado {
+    background-color: #332020;
+    border-color: #7a2f2f;
+}
+.calNumero {
+    font-size: 16px;
+    font-weight: 600;
+}
+.calMarcas {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.calTag {
+    display: inline-block;
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 2px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+.calTag.publica {
+    background-color: rgba(41, 121, 255, 0.2);
+    border: 1px solid #2979ff;
+}
+.calTag.privada {
+    background-color: rgba(255, 171, 0, 0.2);
+    border: 1px solid #ffab00;
+}
+.calTag.minha {
+    background-color: rgba(0, 200, 83, 0.2);
+    border: 1px solid #00c853;
+}
+.calTag.fechado {
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid #ff5252;
+}
+.calLegenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #c9c9c9;
+}
+.calLegenda .ponto {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+.calLegenda .ponto.publica { background-color: #2979ff; }
+.calLegenda .ponto.privada { background-color: #ffab00; }
+.calLegenda .ponto.minha   { background-color: #00c853; }
+.calLegenda .ponto.fechado { background-color: #ff5252; }
+.modalCal,
+.modalCal * {
+    box-sizing: border-box;
+}
+.modalCal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    padding: 20px;
+    overflow-y: auto;
+}
+.modalCal.aberto {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.modalCaixa {
+    width: 100%;
+    max-width: 560px;
+    margin: 40px auto;
+    background-color: #2e2e2e;
+    border: 1px solid #3d3d3d;
+    border-radius: 12px;
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+}
+.modalTopo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px;
+    background-color: #1c1c1c;
+    border-radius: 12px 12px 0 0;
+}
+.modalTopo h3 {
+    margin: 0;
+    font-size: 18px;
+}
+.modalFechar {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.modalCorpo {
+    padding: 15px;
+}
+.calSub {
+    font-size: 15px;
+    margin: 20px 0 10px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #3d3d3d;
+}
+.calSub:first-child {
+    margin-top: 0;
+}
+.calAviso {
+    margin: 0 0 15px 0;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: rgba(255, 0, 0, 0.15);
+    border: 1px solid #ff5252;
+}
+.corridaItem {
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #272727;
+    border: 1px solid #3d3d3d;
+    border-radius: 10px;
+}
+.corridaCabeca {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.corridaHora {
+    font-size: 17px;
+    font-weight: 600;
+}
+.corridaVagas {
+    font-size: 13px;
+    color: #c9c9c9;
+    margin-left: auto;
+}
+.corridaInfo {
+    font-size: 13px;
+    color: #c9c9c9;
+    margin: 6px 0;
+}
+.corridaSenha {
+    font-size: 13px;
+    margin: 6px 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background-color: rgba(255, 171, 0, 0.12);
+    border: 1px solid #ffab00;
+}
+.corridaOk {
+    font-size: 13px;
+    margin: 6px 0 0 0;
+    color: #00c853;
+}
+.listaPilotos {
+    margin: 8px 0;
+    padding-left: 20px;
+    font-size: 13px;
+    color: #e4e4e4;
+}
+.listaPilotos li {
+    margin-bottom: 3px;
+}
+.calForm {
+    margin-top: 10px;
+}
+.calForm.linha {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+.calForm label {
+    display: block;
+    font-size: 13px;
+    color: #c9c9c9;
+    margin: 10px 0 5px 0;
+}
+.inputCal {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #1c1c1c;
+    border: 1px solid #3d3d3d;
+    border-radius: 8px;
+}
+.calForm.linha .inputCal {
+    width: auto;
+    flex: 1;
+    min-width: 150px;
+}
+.inputCal:focus {
+    outline: none;
+    border-color: #00c853;
+}
+.botaoCal {
+    margin-top: 12px;
+    padding: 11px 18px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #00a846;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.botaoCal:hover {
+    background-color: #00c853;
+}
+.calForm.linha .botaoCal {
+    margin-top: 0;
+}
+.botaoCal.secundario {
+    background-color: #3d3d3d;
+}
+.botaoCal.secundario:hover {
+    background-color: #4d4d4d;
+}
+@media only screen and (max-width: 768px) {
+    .calSemana span {
+        font-size: 11px;
+    }
+    .calSemana,
+    .calGrade {
+        gap: 4px;
+    }
+    .calDia {
+        min-height: 64px;
+        padding: 5px;
+        border-radius: 8px;
+    }
+    .calNumero {
+        font-size: 14px;
+    }
+    .calMarcas {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+    .calTag {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border-radius: 50%;
+        overflow: hidden;
+        text-indent: -999px;
+    }
+    .calMes {
+        font-size: 18px;
+    }
+    .modalCal {
+        padding: 0;
+    }
+    .modalCaixa {
+        margin: 0;
+        min-height: 100%;
+        border-radius: 0;
+        border: none;
+    }
+    .modalTopo {
+        border-radius: 0;
+        position: sticky;
+        top: 0;
+    }
+    .calForm.linha .inputCal {
+        min-width: 100%;
+    }
+    .calForm.linha .botaoCal {
+        width: 100%;
+        margin-top: 8px;
+    }
+}

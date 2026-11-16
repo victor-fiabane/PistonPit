@@ -31,7 +31,7 @@ CREATE TABLE `bloqueio` (
   UNIQUE KEY `uq_bloq_data` (`bloq_data`),
   KEY `fk_bloq_func` (`fk_id_func`),
   CONSTRAINT `fk_bloq_func` FOREIGN KEY (`fk_id_func`) REFERENCES `funcionario` (`id_func`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `bloqueio` (
 
 LOCK TABLES `bloqueio` WRITE;
 /*!40000 ALTER TABLE `bloqueio` DISABLE KEYS */;
+INSERT INTO `bloqueio` VALUES (1,'2026-11-18','Feriado',1),(2,'2026-11-16','Meu Aniversario',1);
 /*!40000 ALTER TABLE `bloqueio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +67,7 @@ CREATE TABLE `cancelamento` (
   CONSTRAINT `fk_canc_func` FOREIGN KEY (`fk_id_func`) REFERENCES `funcionario` (`id_func`),
   CONSTRAINT `ck_canc_quem` CHECK (`fk_id_cli` is not null or `fk_id_func` is not null),
   CONSTRAINT `ck_canc_just` CHECK (char_length(trim(`canc_just`)) > 0)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,6 +76,7 @@ CREATE TABLE `cancelamento` (
 
 LOCK TABLES `cancelamento` WRITE;
 /*!40000 ALTER TABLE `cancelamento` DISABLE KEYS */;
+INSERT INTO `cancelamento` VALUES (1,'Teste','2026-11-15 18:21:09',2,NULL,1);
 /*!40000 ALTER TABLE `cancelamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +99,7 @@ CREATE TABLE `cliente` (
   PRIMARY KEY (`id_cli`),
   UNIQUE KEY `uq_cli_cpf` (`cli_cpf`),
   UNIQUE KEY `uq_cli_email` (`cli_email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,6 +108,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,'Cliente','952.419.140','CliTeste@pistonpit.com','51 99999999','$2y$10$YnMxvDAoF4xsRv85gCC7Ru7QWYy0UciV7.fKldxU9N2.YfHqCCM06',1,'2026-11-12 23:27:02');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,6 +126,7 @@ CREATE TABLE `corrida` (
   `cor_tipo` enum('TREINO','CORRIDA','TOMADA_TEMPO') NOT NULL,
   `cor_visibilidade` enum('PUBLICA','PRIVADA') NOT NULL,
   `cor_senha` varchar(255) DEFAULT NULL,
+  `cor_desc` varchar(150) DEFAULT NULL,
   `cor_limite_pilot` tinyint(3) unsigned NOT NULL,
   `cor_status` enum('AGENDADA','CANCELADA','REALIZADA') NOT NULL DEFAULT 'AGENDADA',
   `fk_id_cli` int(10) unsigned DEFAULT NULL,
@@ -139,7 +143,7 @@ CREATE TABLE `corrida` (
   CONSTRAINT `ck_cor_quem` CHECK (`fk_id_cli` is not null or `fk_id_func` is not null),
   CONSTRAINT `ck_cor_publica` CHECK (`cor_visibilidade` = 'PRIVADA' or `fk_id_cli` is null),
   CONSTRAINT `ck_cor_senha` CHECK (`cor_visibilidade` = 'PRIVADA' and `cor_senha` is not null or `cor_visibilidade` = 'PUBLICA' and `cor_senha` is null)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,6 +152,7 @@ CREATE TABLE `corrida` (
 
 LOCK TABLES `corrida` WRITE;
 /*!40000 ALTER TABLE `corrida` DISABLE KEYS */;
+INSERT INTO `corrida` (`id_corrida`, `cor_data`, `cor_horario`, `cor_tipo`, `cor_visibilidade`, `cor_senha`, `cor_desc`, `cor_limite_pilot`, `cor_status`, `fk_id_cli`, `fk_id_func`) VALUES (1,'2026-11-17','10:00:00','CORRIDA','PRIVADA','$2y$10$by7GX.H0.2kS92rFfFtZ0.LsR/HUdofxBiOHNZ3EodxC6D3F2TRxq',NULL,12,'AGENDADA',1,NULL),(2,'2026-11-17','10:30:00','CORRIDA','PUBLICA',NULL,'Bateria Teste',12,'CANCELADA',NULL,1),(3,'2026-11-17','13:30:00','TREINO','PUBLICA',NULL,'Etapa Teste',12,'AGENDADA',NULL,1);
 /*!40000 ALTER TABLE `corrida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +174,7 @@ CREATE TABLE `despesa` (
   KEY `fk_desp_func` (`fk_id_func`),
   CONSTRAINT `fk_desp_func` FOREIGN KEY (`fk_id_func`) REFERENCES `funcionario` (`id_func`),
   CONSTRAINT `ck_desp_valor` CHECK (`desp_valor` > 0)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,6 +183,7 @@ CREATE TABLE `despesa` (
 
 LOCK TABLES `despesa` WRITE;
 /*!40000 ALTER TABLE `despesa` DISABLE KEYS */;
+INSERT INTO `despesa` VALUES (1,'Teste 2',100.00,'2026-11-16',1);
 /*!40000 ALTER TABLE `despesa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +233,7 @@ CREATE TABLE `participa` (
   KEY `idx_part_corrida` (`fk_id_corrida`),
   CONSTRAINT `fk_part_cli` FOREIGN KEY (`fk_id_cli`) REFERENCES `cliente` (`id_cli`),
   CONSTRAINT `fk_part_corrida` FOREIGN KEY (`fk_id_corrida`) REFERENCES `corrida` (`id_corrida`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,6 +242,7 @@ CREATE TABLE `participa` (
 
 LOCK TABLES `participa` WRITE;
 /*!40000 ALTER TABLE `participa` DISABLE KEYS */;
+INSERT INTO `participa` VALUES (1,1,1,'2026-11-15 18:07:28'),(2,1,3,'2026-11-15 18:21:39');
 /*!40000 ALTER TABLE `participa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +264,7 @@ CREATE TABLE `receita` (
   KEY `fk_rece_func` (`fk_id_func`),
   CONSTRAINT `fk_rece_func` FOREIGN KEY (`fk_id_func`) REFERENCES `funcionario` (`id_func`),
   CONSTRAINT `ck_rece_valor` CHECK (`rece_valor` > 0)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,6 +273,7 @@ CREATE TABLE `receita` (
 
 LOCK TABLES `receita` WRITE;
 /*!40000 ALTER TABLE `receita` DISABLE KEYS */;
+INSERT INTO `receita` VALUES (1,'Teste',120.00,'2026-11-16',1);
 /*!40000 ALTER TABLE `receita` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,4 +290,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-12  3:22:34
+-- Dump completed on 2026-11-16  2:36:13

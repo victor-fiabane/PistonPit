@@ -12,7 +12,11 @@ if ($isAdmin && isset($_POST['salvar'])) {
 	$idEdicao = isset($_POST['id_func']) ? (int) $_POST['id_func'] : 0;
 	$nome = isset($_POST['func_nome']) ? trim($_POST['func_nome']) : "";
 	$email = isset($_POST['func_email']) ? trim($_POST['func_email']) : "";
-	$perfil = (isset($_POST['func_perfil']) && $_POST['func_perfil'] == 'ADMIN') ? 'ADMIN' : 'FUNCIONARIO';
+	$perfisValidos = array('ADMIN', 'FINANCEIRO');
+	$perfil = isset($_POST['func_perfil']) ? $_POST['func_perfil'] : 'FINANCEIRO';
+	if (!in_array($perfil, $perfisValidos)) {
+		$perfil = 'FINANCEIRO';
+	}
 	$ativo = (isset($_POST['func_ativo']) && $_POST['func_ativo'] == 1) ? 1 : 0;
 	$senha = isset($_POST['func_senha']) ? $_POST['func_senha'] : "";
 	if ($idEdicao <= 0) {
@@ -83,15 +87,12 @@ $funcionarios = $crud->listEmplo();
 					<h1>Funcionários cadastrados</h1>
 					<p><?php echo count($funcionarios); ?> registro(s)</p>
 				</div>
-
 				<?php if (isset($_GET['salvo'])) { ?>
 					<p class="mensagem sucesso">Dados do funcionário atualizados com sucesso.</p>
 				<?php } ?>
-
 				<?php if ($mensagem != "") { ?>
 					<p class="mensagem <?php echo $tipoMensagem; ?>"><?php echo htmlspecialchars($mensagem); ?></p>
 				<?php } ?>
-
 				<?php if ($funcEdicao) { ?>
 					<form method="post">
 						<div id="container-form">

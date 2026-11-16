@@ -76,15 +76,12 @@ $clientes = $crud->listCli();
 					<h1>Clientes cadastrados</h1>
 					<p><?php echo count($clientes); ?> registro(s)</p>
 				</div>
-
 				<?php if (isset($_GET['salvo'])) { ?>
 					<p class="mensagem sucesso">Dados do cliente atualizados com sucesso.</p>
 				<?php } ?>
-
 				<?php if ($mensagem != "") { ?>
 					<p class="mensagem <?php echo $tipoMensagem; ?>"><?php echo htmlspecialchars($mensagem); ?></p>
 				<?php } ?>
-
 				<?php if ($clienteEdicao) { ?>
 					<form method="post">
 						<div id="container-form">

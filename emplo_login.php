@@ -13,11 +13,9 @@
     if (isset($_POST['subButton'])){
         $user = isset($_POST['loginText']) ? trim($_POST['loginText']) : "";
         $pass = isset($_POST['passwordText']) ? $_POST['passwordText'] : "";
-
         if($user != "" && $pass != ""){
             $crud = new Crud($db);
             $row = $crud->readEmplo($user);
-
             if ($row && password_verify($pass, $row['func_senha'])) {
                 if ($row['func_ativo'] == 1) {
                     $_SESSION['id'] = $row['id_func'];

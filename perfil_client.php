@@ -11,7 +11,6 @@ if (isset($_POST['salvarButton'])) {
 	$email = isset($_POST['emailText']) ? trim($_POST['emailText']) : "";
 	$telefone = isset($_POST['telefoneText']) ? trim($_POST['telefoneText']) : "";
 	$senha = isset($_POST['senhaText']) ? $_POST['senhaText'] : "";
-
 	if ($nome == "" || $email == "" || $telefone == "") {
 		$mensagem = "Preencha o nome, o e-mail e o telefone.";
 	} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -37,6 +36,27 @@ if (!$cliente) {
 	header("Location: logout.php");
 	exit();
 }
+$duracaoMin = 30;
+$corte = time() - ($duracaoMin * 60);
+$crud->updateCorridaRealizada(date("Y-m-d", $corte), date("H:i", $corte));
+$tiposCorrida = array(
+	"CORRIDA"      => "Corrida",
+	"TREINO"       => "Treino",
+	"TOMADA_TEMPO" => "Tomada de tempo"
+);
+$historico = $crud->listCorridaCliente($_SESSION['id']);
+$agora = time();
+$proximas  = array();
+$anteriores = array();
+foreach ($historico as $linha) {
+	$quando = strtotime($linha['cor_data'] . " " . $linha['cor_horario']);
+	if ($linha['cor_status'] == 'AGENDADA' && $quando > $agora) {
+		$proximas[] = $linha;
+	} else {
+		$anteriores[] = $linha;
+	}
+}
+$proximas = array_reverse($proximas);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -60,7 +80,6 @@ if (!$cliente) {
 				<div id="container-titulo">
 					<h1>Seu perfil</h1>
 				</div>
-
 				<?php if ($sucesso != "") { ?>
 					<p class="mensagem sucesso"><?php echo htmlspecialchars($sucesso); ?></p>
 				<?php } ?>
@@ -96,6 +115,95 @@ if (!$cliente) {
 				</form>
 				<div id="container-historico">
 					<h2>Histórico de corridas</h2>
+					<?php if (count($historico) == 0) { ?>
+						<p>Você ainda não participou de nenhuma corrida. Marque a sua primeira pelo calendário, no menu.</p>
+					<?php } else { ?>
+						<p><?php echo count($historico); ?> corrida(s) no total</p>
+						<?php if (count($proximas) > 0) { ?>
+							<h3>Próximas corridas</h3>
+							<div id="container-tabela">
+								<table class="tabela">
+									<tr>
+										<th>Data</th>
+										<th>Horário</th>
+										<th>Evento</th>
+										<th>Acesso</th>
+										<th>Pilotos</th>
+										<th>Situação</th>
+									</tr>
+									<?php foreach ($proximas as $corrida) { ?>
+										<tr>
+											<td><?php echo date("d/m/Y", strtotime($corrida['cor_data'])); ?></td>
+											<td><?php echo substr($corrida['cor_horario'], 0, 5); ?></td>
+											<td><?php echo htmlspecialchars(isset($tiposCorrida[$corrida['cor_tipo']]) ? $tiposCorrida[$corrida['cor_tipo']] : $corrida['cor_tipo']); ?></td>
+											<td>
+												<?php
+													if ($corrida['cor_visibilidade'] == 'PUBLICA') {
+														echo "Pública";
+													} else if ($corrida['fk_id_cli'] == $_SESSION['id']) {
+														echo "Privada (sua)";
+													} else {
+														echo "Privada (convidado)";
+													}
+												?>
+											</td>
+											<td><?php echo (int) $corrida['total_part'] . " de " . (int) $corrida['cor_limite_pilot']; ?></td>
+											<td>Agendada</td>
+										</tr>
+									<?php } ?>
+								</table>
+							</div>
+						<?php } ?>
+						<?php if (count($anteriores) > 0) { ?>
+							<h3>Corridas anteriores</h3>
+							<div id="container-tabela">
+								<table class="tabela">
+									<tr>
+										<th>Data</th>
+										<th>Horário</th>
+										<th>Evento</th>
+										<th>Acesso</th>
+										<th>Pilotos</th>
+										<th>Situação</th>
+									</tr>
+									<?php foreach ($anteriores as $corrida) { ?>
+										<tr>
+											<td><?php echo date("d/m/Y", strtotime($corrida['cor_data'])); ?></td>
+											<td><?php echo substr($corrida['cor_horario'], 0, 5); ?></td>
+											<td><?php echo htmlspecialchars(isset($tiposCorrida[$corrida['cor_tipo']]) ? $tiposCorrida[$corrida['cor_tipo']] : $corrida['cor_tipo']); ?></td>
+											<td>
+												<?php
+													if ($corrida['cor_visibilidade'] == 'PUBLICA') {
+														echo "Pública";
+													} else if ($corrida['fk_id_cli'] == $_SESSION['id']) {
+														echo "Privada (sua)";
+													} else {
+														echo "Privada (convidado)";
+													}
+												?>
+											</td>
+											<td><?php echo (int) $corrida['total_part'] . " de " . (int) $corrida['cor_limite_pilot']; ?></td>
+											<td>
+												<?php
+													if ($corrida['cor_status'] == 'CANCELADA') {
+														$quem = ($corrida["canc_cli"] == $_SESSION["id"]) ? "por você" : "pelo kartódromo";
+														echo "Cancelada (" . $quem . ")";
+														if ($corrida['canc_just'] != "") {
+															echo "<br>" . htmlspecialchars($corrida['canc_just']);
+														}
+													} else if ($corrida['cor_status'] == 'REALIZADA') {
+														echo "Realizada";
+													} else {
+														echo "Agendada";
+													}
+												?>
+											</td>
+										</tr>
+									<?php } ?>
+								</table>
+							</div>
+						<?php } ?>
+					<?php } ?>
 				</div>
 			</div>
 		</div>

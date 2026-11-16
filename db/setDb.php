@@ -1,7 +1,7 @@
 <?php
-    class DataBase{   
+    class DataBase{
         private $host = "localhost";
-        private $db_name = "pistonpitdb";
+        private $db_name = "pistonpit";
         private $username = "root";
         private $password = "";
         public $conn;
@@ -15,4 +15,4 @@
             }
             return $this->conn;
         }
-}   
+}

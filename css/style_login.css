@@ -11,13 +11,6 @@ body {
     color: #ffffff;
     font-family: "Poppins", sans-serif;
 }
-
-
-/*
-
-Header
-
-*/
 .main-header {
     position: absolute;
     top: 0;
@@ -29,13 +22,11 @@ Header
     justify-content: center;
     z-index: 999;
 }
-
 .main-header nav {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-
 .main-header nav a {
     font-family: "Poppins", sans-serif;
     color: white;
@@ -45,20 +36,15 @@ Header
     font-weight: bold;
     transition: color 0.3s;
 }
-
 .main-header nav a:hover {
     color: #ff0000;
 }
-
-/* Link Login Funcionario */
-
 #func {
     margin-top: 22px;
     width: 100%;
     display: flex;
     justify-content: center;
 }
-
 #func a {
     font-family: "Poppins", sans-serif;
     color: #ffffff;
@@ -66,14 +52,10 @@ Header
     font-size: 14px;
     transition: color 0.3s;
 }
-
 #func a:hover {
     color: #ff0000;
     text-decoration: underline;
 }
-
-/*  Desktop CSS */
-
 #mainMobile{
     display: none;
 }
@@ -89,7 +71,6 @@ Header
     gap: 40px;
     padding: 110px 5vw 60px;
 }
-
 #mainText{
     width: 100%;
     display: flex;
@@ -99,13 +80,6 @@ Header
 #mainText p{
     font-size: 50px;
 }
-
-
-/*
-
-Title Section
-
-*/
 #warning{
     color: yellow;
     font-family: "Poppins", sans-serif;
@@ -136,12 +110,6 @@ Title Section
     font-size: 45px;
     margin-top: 5px;
 }
-
-/*
-
------===== Inputs section ======------
-
-*/
 #inputs{
     width: 50%;
     display: flex;
@@ -154,9 +122,6 @@ Title Section
     display: flex;
     flex-direction: column;
 }
-
-/* Mensagem de erro do PHP */
-
 .mensagem{
     margin-top: 14px;
     padding: 10px 14px;
@@ -170,7 +135,11 @@ Title Section
     background-color: rgba(255, 0, 0, 0.12);
     border: 1px solid rgba(255, 107, 107, 0.45);
 }
-
+.sucesso{
+    color: #6bff9b;
+    background-color: rgba(0, 200, 83, 0.12);
+    border: 1px solid rgba(0, 200, 83, 0.45);
+}
 .textarea{
     width: 100%;
     margin-top: 20px;
@@ -203,7 +172,27 @@ Title Section
 .inputText:focus{
     border-color: #ff0000;
 }
-
+.termo{
+    width: 100%;
+    margin-top: 20px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.termo label{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+.termo input{
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    accent-color: #ff0000;
+    cursor: pointer;
+}
 #submitDiv{
     width: 100%;
     margin-top: 32px;
@@ -228,13 +217,6 @@ Title Section
     color: #ff0000;
     border-color: #000000;
 }
-
-/*
-
-Telas medias
-
-*/
-
 @media only screen and (max-width: 1024px){
     .titleText{
         font-size: 42px;
@@ -246,13 +228,6 @@ Telas medias
         gap: 25px;
     }
 }
-
-/*
-
-Mobile CSS
-
-*/
-
 @media only screen and (max-width: 768px){
     .main-header {
         padding: 15px 0;
@@ -303,7 +278,6 @@ Mobile CSS
         height: 46px;
     }
 }
-
 @media only screen and (max-width: 380px){
     #mainPc{
         padding-left: 16px;

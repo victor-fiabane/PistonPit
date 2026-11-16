@@ -3,14 +3,12 @@ include_once("./db/config.php");
 include_once("./db/setDb.php");
 include_once("./crud.php");
 require_once 'auth_emplo.php';
-
 $crud = new Crud($db);
 $mensagem = "";
 $sucesso = "";
 if (isset($_POST['salvarButton'])) {
 	$nome = isset($_POST['nomeText']) ? trim($_POST['nomeText']) : "";
 	$senha = isset($_POST['senhaText']) ? $_POST['senhaText'] : "";
-
 	if ($nome == "") {
 		$mensagem = "Preencha o nome.";
 	} else {
@@ -27,7 +25,6 @@ if (isset($_POST['salvarButton'])) {
 	}
 }
 $funcionario = $crud->readEmploId($_SESSION['id']);
-
 if (!$funcionario) {
 	header("Location: logout.php");
 	exit();
@@ -55,7 +52,6 @@ if (!$funcionario) {
 				<div id="container-titulo">
 					<h1>Seu perfil</h1>
 				</div>
-
 				<?php if ($sucesso != "") { ?>
 					<p class="mensagem sucesso"><?php echo htmlspecialchars($sucesso); ?></p>
 				<?php } ?>

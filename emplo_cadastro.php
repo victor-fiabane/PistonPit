@@ -14,7 +14,11 @@
         $email    = isset($_POST['loginText']) ? trim($_POST['loginText']) : "";
         $senha    = isset($_POST['passwordText']) ? $_POST['passwordText'] : "";
         $confirma = isset($_POST['passwordConfirmText']) ? $_POST['passwordConfirmText'] : "";
-        $perfil   = isset($_POST['perfilSelect']) ? $_POST['perfilSelect'] : "financeiro";
+        $perfisValidos = array('ADMIN', 'FINANCEIRO', 'MECANICO');
+        $perfil = isset($_POST['perfilSelect']) ? $_POST['perfilSelect'] : "FINANCEIRO";
+        if (!in_array($perfil, $perfisValidos)) {
+            $perfil = "FINANCEIRO";
+        }
         $crud = new Crud($db);
         if ($nome == "" || $email == "" || $senha == "") {
             $mensagem = "Preencha todos os campos.";
@@ -23,7 +27,7 @@
         } else if ($crud->existsEmplo($email)) {
             $mensagem = "Este e-mail já está cadastrado para um funcionário.";
         } else {
-            if ($crud->createEmplo($nome, $email, $senha, ($perfil == "admin"))) {
+            if ($crud->createEmplo($nome, $email, $senha, $perfil)) {
                 $sucesso = "Funcionário cadastrado.";
             } else {
                 $mensagem = "Não foi possível concluir o cadastro, tente novamente.";
@@ -76,8 +80,9 @@
                     <div class="textarea">
                         <p>Perfil</p>
                         <select name="perfilSelect" class="inputText">
-                            <option value="financeiro">Financeiro</option>
-                            <option value="admin">Administrador</option>
+                            <option value="FINANCEIRO">Financeiro</option>
+                            <!-- <option value="MECANICO">Mecânico</option> -->
+                            <option value="ADMIN">Administrador</option>
                         </select>
                     </div>
                     <div class="textarea">

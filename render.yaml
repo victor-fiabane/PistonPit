@@ -1,0 +1,28 @@
+# ===================================================================
+# render.yaml - Blueprint do PistonPit
+# Opcional: com este arquivo na raiz do repo, o Render ja cria o
+# servico com as configuracoes certas (Blueprint > New > Blueprint).
+# Se preferir criar o Web Service na mao pelo painel, pode ignorar.
+# ===================================================================
+services:
+  - type: web
+    name: pistonpit
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      # Os valores do banco sao preenchidos no painel do Render
+      # (sync: false = nao ficam versionados no Git).
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: DB_SSL
+        value: "true"

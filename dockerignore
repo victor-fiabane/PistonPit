@@ -1,0 +1,13 @@
+# Arquivos que NAO precisam ir para dentro da imagem do container
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.md
+*.sql
+*.zip
+*.rar
+/docs
+/documentacao

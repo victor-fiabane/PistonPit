@@ -19,4 +19,16 @@ DB:
         private $username = "webstoragecom_piston";
         private $password = ")Sukw_!oF5_YExE#";
 
+
+
+
+TiDBCloud
+
+mysql://hpJ1yrdQzRzan4d.root:<PASSWORD>@gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/sys
+
+Host: gateway01.ap-northeast-1.prod.aws.tidbcloud.com
+Port: 4000
+User: hpJ1yrdQzRzan4d.root
+Password: ayYC7ybEb3Gee0xX
+DataBase: sys
 -->

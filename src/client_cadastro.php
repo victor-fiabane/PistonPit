@@ -9,12 +9,30 @@ include_once("./db/config.php");
         header("Location: mainMenu.php");
         exit();
     }
+    if (!function_exists('cpfValido')) {
+        function cpfValido($cpf) {
+            if (strlen($cpf) != 11 || preg_match('/^(\d)\1{10}$/', $cpf)) {
+                return false;
+            }
+            for ($t = 9; $t < 11; $t++) {
+                $soma = 0;
+                for ($i = 0; $i < $t; $i++) {
+                    $soma += $cpf[$i] * (($t + 1) - $i);
+                }
+                $digito = ((10 * $soma) % 11) % 10;
+                if ($cpf[$t] != $digito) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
     $mensagem = "";
     if (isset($_POST['subButton'])){
         $nome     = isset($_POST['nomeText']) ? trim($_POST['nomeText']) : "";
-        $cpf      = isset($_POST['cpfText']) ? trim($_POST['cpfText']) : "";
+        $cpf      = isset($_POST['cpfText']) ? preg_replace('/\D/', '', $_POST['cpfText']) : "";
         $email    = isset($_POST['loginText']) ? trim($_POST['loginText']) : "";
-        $telefone = isset($_POST['telefoneText']) ? trim($_POST['telefoneText']) : "";
+        $telefone = isset($_POST['telefoneText']) ? preg_replace('/\D/', '', $_POST['telefoneText']) : "";
         $senha    = isset($_POST['passwordText']) ? $_POST['passwordText'] : "";
         $confirma = isset($_POST['passwordConfirmText']) ? $_POST['passwordConfirmText'] : "";
         $termo    = isset($_POST['termoCheck']);
@@ -23,6 +41,10 @@ include_once("./db/config.php");
             $mensagem = "Preencha todos os campos.";
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $mensagem = "Informe um e-mail válido.";
+        } else if (!cpfValido($cpf)) {
+            $mensagem = "Informe um CPF válido.";
+        } else if (strlen($telefone) < 10 || strlen($telefone) > 11) {
+            $mensagem = "Informe um telefone válido com DDD.";
         } else if (strlen($senha) < 6) {
             $mensagem = "Informe uma senha válida.";
         } else if (!$termo) {

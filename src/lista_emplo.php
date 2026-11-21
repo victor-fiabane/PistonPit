@@ -1,8 +1,7 @@
 <?php
-include_once("./db/config.php");
-include_once("./db/setDb.php");
-include_once("./crud.php");
-require_once "auth_emplo.php";
+include_once(__DIR__ . "/../db/config.php");
+include_once(__DIR__ . "/crud.php");
+require_once(__DIR__ . "/auth_emplo.php");
 $crud = new Crud($db);
 $isAdmin = ($_SESSION['func_perfil'] == 'ADMIN');
 $mensagem = "";
@@ -104,7 +103,7 @@ $funcionarios = $crud->listEmplo();
 							<input type="email" name="func_email" class="inputText" value="<?php echo htmlspecialchars(isset($_POST['func_email']) ? $_POST['func_email'] : $funcEdicao['func_email']); ?>" required>
 							<p>Perfil</p>
 							<select name="func_perfil" class="inputText">
-								<option value="FUNCIONARIO" <?php echo ($funcEdicao['func_perfil'] != 'ADMIN') ? "selected" : ""; ?>>Funcionário</option>
+								<option value="FINANCEIRO" <?php echo ($funcEdicao['func_perfil'] != 'ADMIN') ? "selected" : ""; ?>>Funcionário</option>
 								<option value="ADMIN" <?php echo ($funcEdicao['func_perfil'] == 'ADMIN') ? "selected" : ""; ?>>Administrador</option>
 							</select>
 							<p>Situação</p>

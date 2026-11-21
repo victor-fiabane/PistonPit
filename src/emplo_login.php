@@ -1,7 +1,6 @@
 <?php
-    include_once("./db/config.php");
-    include_once("./db/setDb.php");
-    include_once("./crud.php");
+    include_once(__DIR__ . "/../db/config.php");
+    include_once(__DIR__ . "/crud.php");
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
@@ -18,6 +17,7 @@
             $row = $crud->readEmplo($user);
             if ($row && password_verify($pass, $row['func_senha'])) {
                 if ($row['func_ativo'] == 1) {
+                    session_regenerate_id(true);
                     $_SESSION['id'] = $row['id_func'];
                     $_SESSION['username'] = $row['func_email'];
                     $_SESSION['nome'] = $row['func_nome'];

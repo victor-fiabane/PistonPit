@@ -1,8 +1,7 @@
 <?php
-    include_once("./db/config.php");
-    include_once("./db/setDb.php");
-    include_once("./crud.php");
-    require_once "auth_emplo.php";
+    include_once(__DIR__ . "/../db/config.php");
+    include_once(__DIR__ . "/crud.php");
+    require_once(__DIR__ . "/auth_emplo.php");
     if ($_SESSION['func_perfil'] != 'ADMIN') {
         header("Location: mainEmplo.php");
         exit();

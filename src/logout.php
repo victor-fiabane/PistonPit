@@ -1,10 +1,14 @@
 <?php
-    session_start();
-    unset($_SESSION["id"]);
-    unset($_SESSION["email"]);
-    unset($_SESSION["nome"]);
-    unset($_SESSION["perfil"]);
-    unset($_SESSION["admin"]);
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    $_SESSION = array();
+    if (ini_get("session.use_cookies")) {
+        $p = session_get_cookie_params();
+        setcookie(session_name(), "", time() - 42000,
+                  $p["path"], $p["domain"], $p["secure"], $p["httponly"]);
+    }
     session_destroy();
-    header("location: client_login.php");
+    header("Location: client_login.php");
+    exit();
 ?>

@@ -1,8 +1,7 @@
 <?php
-include_once("./db/config.php");
-include_once("./db/setDb.php");
-include_once("./crud.php");
-require_once 'auth.php';
+include_once(__DIR__ . "/../db/config.php");
+include_once(__DIR__ . "/crud.php");
+require_once(__DIR__ . "/auth.php");
 $crud = new Crud($db);
 $mensagem = "";
 $sucesso = "";

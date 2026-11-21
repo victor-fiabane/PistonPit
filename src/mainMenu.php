@@ -1,8 +1,7 @@
 <?php
-    include_once("./db/config.php");
-    include_once("./db/setDb.php");
-    include_once("./crud.php");
-    require_once 'auth.php';
+    include_once(__DIR__ . "/../db/config.php");
+    include_once(__DIR__ . "/crud.php");
+    require_once(__DIR__ . "/auth.php");
     $crud = new Crud($db);
     $horaAbre      = "10:00";
     $horaFecha     = "22:00";
@@ -280,8 +279,8 @@
 <body>
 <header class="main-header">
         <nav>
-            <a href="conheca.html">Conheça o kartódromo</a>
-            <a href="pistas.html">Nossas pistas</a>
+            <a href="conheca.php">Conheça o kartódromo</a>
+            <a href="pistas.php">Nossas pistas</a>
             <a href="perfil_client.php">Perfil</a>
             <a href="logout.php">Sair</a>
         </nav>

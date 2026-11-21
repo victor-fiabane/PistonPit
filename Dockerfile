@@ -2,7 +2,7 @@
 # Dockerfile - PistonPit no Render
 # O Render nao tem runtime PHP nativo, so Docker. Este arquivo monta
 # um container com Apache + PHP 8.2 e joga o projeto dentro dele.
-# Coloque este arquivo na RAIZ do repositorio (junto do index.php).
+# Coloque este arquivo na RAIZ do repositorio (junto de src/ e db/).
 # ===================================================================
 FROM php:8.2-apache
 
@@ -19,11 +19,20 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli \
 # Copia o codigo do projeto para a pasta publica do Apache
 COPY . /var/www/html/
 
-# NOVO: a tela inicial do sistema e o client_login.php (e nao index.php),
-# entao o Apache precisa saber qual arquivo abrir quando alguem acessa a
-# raiz do site. Se um dia a tela inicial mudar de nome, troque aqui.
-RUN echo "DirectoryIndex client_login.php index.php index.html" \
-    > /etc/apache2/conf-enabled/zz-pistonpit-index.conf
+# NOVO: a tela inicial do sistema e o client_login.php (e nao index.php) e fica
+# dentro de src/, entao o Apache precisa saber qual pasta publicar e qual arquivo
+# abrir quando alguem acessa a raiz do site. Publicar src/ tambem deixa a pasta
+# db/, com as credenciais, fora do alcance do navegador.
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/src|' \
+        /etc/apache2/sites-available/000-default.conf \
+ && printf '%s\n' \
+      '<Directory /var/www/html/src>' \
+      '    Options -Indexes +FollowSymLinks' \
+      '    AllowOverride None' \
+      '    Require all granted' \
+      '</Directory>' \
+      'DirectoryIndex client_login.php index.php index.html' \
+      > /etc/apache2/conf-enabled/zz-pistonpit-index.conf
 
 # Configuracoes de PHP do ambiente online
 # OBS: display_errors fica On agora para facilitar achar erro no primeiro

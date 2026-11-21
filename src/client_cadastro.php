@@ -1,7 +1,6 @@
 <?php
-include_once("./db/config.php");
-    include_once("./db/setDb.php");
-    include_once("./crud.php");
+include_once(__DIR__ . "/../db/config.php");
+include_once(__DIR__ . "/crud.php");
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
@@ -47,6 +46,8 @@ include_once("./db/config.php");
             $mensagem = "Informe um telefone válido com DDD.";
         } else if (strlen($senha) < 6) {
             $mensagem = "Informe uma senha válida.";
+        } else if ($senha != $confirma) {
+            $mensagem = "As senhas informadas não são iguais.";
         } else if (!$termo) {
             $mensagem = "É necessário aceitar o termo de consentimento para finalizar o cadastro.";
         } else if ($crud->existsCli($email, $cpf)) {
@@ -108,6 +109,10 @@ include_once("./db/config.php");
                     <div class="textarea">
                         <p>Senha</p>
                         <input type="password" name="passwordText" class="inputText" placeholder="Insira uma senha" required>
+                    </div>
+                    <div class="textarea">
+                        <p>Confirmar senha</p>
+                        <input type="password" name="passwordConfirmText" class="inputText" placeholder="Repita a senha" required>
                     </div>
                     <br>
                     <div class="termo">

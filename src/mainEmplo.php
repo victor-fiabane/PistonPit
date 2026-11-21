@@ -1,8 +1,7 @@
 <?php
-    include_once("./db/config.php");
-    include_once("./db/setDb.php");
-    include_once("./crud.php");
-    require_once 'auth_emplo.php';
+    include_once(__DIR__ . "/../db/config.php");
+    include_once(__DIR__ . "/crud.php");
+    require_once(__DIR__ . "/auth_emplo.php");
     $crud = new Crud($db);
     $podeGerenciar = in_array($_SESSION['func_perfil'], array('ADMIN', 'FINANCEIRO'));
     $horaAbre     = "10:00";
@@ -81,10 +80,12 @@
         $desc    = isset($_POST['bloqDescText']) ? trim($_POST['bloqDescText']) : "";
         $diaAbrir = $dataSel;
         $temCorrida = false;
-        $doDia = $crud->listCorridaMes($dataSel, $dataSel);
-        foreach ($doDia as $linha) {
-            if ($linha['cor_status'] == 'AGENDADA') {
-                $temCorrida = true;
+        if (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $dataSel)) {
+            $doDia = $crud->listCorridaMes($dataSel, $dataSel);
+            foreach ($doDia as $linha) {
+                if ($linha['cor_status'] == 'AGENDADA') {
+                    $temCorrida = true;
+                }
             }
         }
         if (!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $dataSel)) {
@@ -303,7 +304,7 @@
                                             $qtdPrivada = 0;
                                             $qtdPilotos = 0;
                                             foreach ($info['corridas'] as $item) {
-                                                if ($item['tipo'] == 'PUBLICA') { $qtdPublica++; } else { $qtdPrivada++; }
+                                                if ($item['visibilidade'] == 'PUBLICA') { $qtdPublica++; } else { $qtdPrivada++; }
                                                 $qtdPilotos = $qtdPilotos + $item['total'];
                                             }
                                         ?>

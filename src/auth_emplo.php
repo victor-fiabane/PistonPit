@@ -6,9 +6,8 @@ if (!isset($_SESSION["id"]) || $_SESSION["perfil"] != "funcionario") {
 	header("Location: emplo_login.php");
 	exit();
 }
-include_once("./db/config.php");
-include_once("./db/setDb.php");
-include_once("./crud.php");
+include_once(__DIR__ . "/../db/config.php");
+include_once(__DIR__ . "/crud.php");
 $crudAuth = new Crud($db);
 $funcAtual = $crudAuth->readEmploId($_SESSION["id"]);
 if (!$funcAtual || $funcAtual["func_ativo"] != 1) {

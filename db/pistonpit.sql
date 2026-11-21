@@ -212,7 +212,9 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'Administrador','admin@pistonpit.com','$2y$10$Eq93mJzhYSfSopSy4c233exwDgBqC8mCY9AaHTpBSha9YojhkbOCS','ADMIN',1);
+INSERT INTO `funcionario` VALUES
+(1,'Administrador','admin@pistonpit.com','$2y$10$Eq93mJzhYSfSopSy4c233exwDgBqC8mCY9AaHTpBSha9YojhkbOCS','ADMIN',1),
+(34776,'Funcionário Kart','kartfunc@admin.com','$2y$10$V62fb8.CWZ42jjwYOYjGaOhK1vFVCrCV3iPFHXQlUsM/xuSvymP5q','FINANCEIRO',1);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
